@@ -1,0 +1,107 @@
+%full {
+    width: 100%;
+    height: 100%;
+}
+
+%flex-item {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: black;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#wrapper {
+    width: 94%;
+    height: 90%;
+    position: absolute;
+    margin-left: 3%;
+}
+
+.menu {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    padding-left: 45%;
+}
+
+#next {
+    margin-left: 5%;
+}
+
+#viewport {
+    height: 100%;
+    position:relative;
+    width: auto;
+    overflow: hidden;
+}
+
+#carousel {
+    height: 100%;
+    position:relative;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+
+    li {
+        @extend %full;
+        display: block;
+    }
+
+    li:nth-child(1) {
+        background: white;
+    }
+
+    li:nth-child(2) {
+        background: green;
+    }
+
+    li:nth-child(3) {
+        background: red;
+    }
+
+    li:nth-child(4) {
+        background: blue;
+    }
+
+    li:nth-child(5) {
+        background: yellow;
+    }
+
+    li:nth-child(6) {
+        background: grey;
+    }
+
+    .prev {
+        @extend %flex-item;
+        margin-left: -100%;
+        order: 1;
+    }
+
+    .active {
+        @extend %flex-item;
+        order: 2;
+    }
+
+    .next {
+        @extend %flex-item;
+        order: 3;
+    }
+
+    .trans {
+        transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
+        transition-duration: 0.4s;
+        -webkit-transition-duration: 0.4s;
+    }
+}
