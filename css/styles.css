@@ -22,6 +22,9 @@ ul {
   height: 90%;
   position: absolute;
   margin-left: 3%; }
+  #wrapper form {
+    margin-left: 38%;
+    color: white; }
 
 .menu {
   color: white;

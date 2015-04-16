@@ -5,7 +5,8 @@
     "use strict";
 
     var menu = document.getElementsByClassName('menu')[0],
-        tabs = document.querySelectorAll('#carousel > li'),
+        form = document.getElementsByTagName('form')[0],
+        carousel = document.getElementById('carousel'),
         cssClass = {
             none: '',
             next: 'next',
@@ -17,7 +18,7 @@
             forward: 'next',
             back: 'previous'
         },
-        active, backDirection;
+        tabs, active, backDirection;
 
     function prefixedEvent(element, type, callback) {
         var pfx = ["webkit", "moz", "MS", "o", ""];
@@ -31,18 +32,21 @@
     }
 
     function animEnd() {
+        tabs = document.querySelectorAll('#carousel > li');
+
         if (backDirection && tabs.length === 2) {
             active.className = cssClass.prev;
         }
-        menu.addEventListener('click', actionHandler, false);
+        menu.addEventListener('click', animationHandler, false);
     }
 
     function animate(direction) {
         var next, prev, next2;
         backDirection = direction === directions.back;
         active = document.getElementsByClassName(cssClass.active)[0];
+        tabs = document.querySelectorAll('#carousel > li');
 
-        menu.removeEventListener('click', actionHandler, false);
+        menu.removeEventListener('click', animationHandler, false);
         prefixedEvent(document, "transitionend", animEnd);
 
         if (tabs.length == 2) {
@@ -87,13 +91,63 @@
         }
     }
 
-    function actionHandler(event) {
+    function rearrangeList(len) {
+        var i, li;
+        tabs = document.querySelectorAll('#carousel > li');
+
+        if (tabs.length > len) {
+            for (i = 0; i < (tabs.length - len); i++) {
+                carousel.removeChild(tabs[tabs.length - (i+1)]);
+            }
+        } else if (tabs.length < len) {
+            for (i = 0; i < (len - tabs.length); i++) {
+                li = document.createElement("li");
+                if (i === 0 && tabs.length <= 2) {
+                   li.className = 'next';
+                }
+                carousel.appendChild(li);
+            }
+        }
+    }
+
+    function animationHandler(event) {
+        var radios = document.getElementsByName('list');
+        for (var i = 0; i< radios.length;  i++){
+            if (!radios[i].checked) {
+                radios[i].disabled = true;
+            }
+        }
+
         if (event.target.id === directions.forward) {
             animate(directions.forward);
         } else if (event.target.id === directions.back) {
             animate(directions.back);
         }
     }
+    function radioHandler(e) {
+        var value = parseInt(e.target.value);
 
-    menu.addEventListener('click', actionHandler, false);
+        if (value) {
+            switch (value) {
+                case 2:
+                    rearrangeList(value);
+                    break;
+                case 3:
+                    rearrangeList(value);
+                    break;
+                case 4:
+                    rearrangeList(value);
+                    break;
+                case 5:
+                    rearrangeList(value);
+                    break;
+                case 6:
+                    rearrangeList(value);
+                    break;
+            }
+        }
+    }
+
+    menu.addEventListener('click', animationHandler, false);
+    form.addEventListener('click', radioHandler, false);
 })();
