@@ -5,19 +5,19 @@
     "use strict";
 
     var carouselJq = $("#carousel"),
-        form = document.getElementsByTagName('form')[0],
-        cssClass   = {
-            none: '',
-            next: 'next',
-            prev: 'prev',
-            active: 'active',
-            trans: ' trans'
-        },
-        directions = {
-            forward: 'next',
-            back: 'previous'
-        },
-        tabs, active, backDirection, isAdded;
+    formJq = $('form'),
+    cssClass   = {
+        none: '',
+        next: 'next',
+        prev: 'prev',
+        active: 'active',
+        trans: ' trans'
+    },
+    directions = {
+        forward: 'next',
+        back: 'previous'
+    },
+    tabs, active, backDirection, isAdded;
 
     function prefixedEvent(element, type, callback) {
         var pfx = ["webkit", "moz", "MS", "o", ""];
@@ -126,7 +126,7 @@
         disableButtons();
         animate(directions.back);
     }
-    
+
     function radioHandler(e) {
         var value = parseInt(e.target.value);
 
@@ -164,5 +164,5 @@
     }
 
     addListeners();
-    form.addEventListener('click', radioHandler, false);
+    formJq.on('tap', radioHandler);
 })();
