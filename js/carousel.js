@@ -5,7 +5,7 @@
     "use strict";
 
     var carouselJq = $("#carousel"),
-        tabs       = document.querySelectorAll('#carousel > li'),
+        form = document.getElementsByTagName('form')[0],
         cssClass   = {
             none: '',
             next: 'next',
@@ -17,7 +17,7 @@
             forward: 'next',
             back: 'previous'
         },
-        active, backDirection, isAdded;
+        tabs, active, backDirection, isAdded;
 
     function prefixedEvent(element, type, callback) {
         var pfx = ["webkit", "moz", "MS", "o", ""];
@@ -31,6 +31,8 @@
     }
 
     function animEnd() {
+        tabs = document.querySelectorAll('#carousel > li');
+
         if (backDirection && tabs.length === 2) {
             active.className = cssClass.prev;
         }
@@ -41,6 +43,7 @@
         var next, prev, next2;
         backDirection = direction === directions.back;
         active = document.getElementsByClassName(cssClass.active)[0];
+        tabs = document.querySelectorAll('#carousel > li');
 
         removeListeners();
         prefixedEvent(document, "transitionend", animEnd);
@@ -87,11 +90,65 @@
         }
     }
 
+    function rearrangeList(len) {
+        var i, li;
+        tabs = document.querySelectorAll('#carousel > li');
+
+        if (tabs.length > len) {
+            for (i = 0; i < (tabs.length - len); i++) {
+                carouselJq.children().last().remove();
+            }
+        } else if (tabs.length < len) {
+            for (i = 0; i < (len - tabs.length); i++) {
+                li = document.createElement("li");
+                if (i === 0 && tabs.length <= 2) {
+                    li.className = 'next';
+                }
+                carouselJq.append(li);
+            }
+        }
+    }
+
+    function disableButtons() {
+        var radios = document.getElementsByName('list');
+        for (var i = 0; i< radios.length;  i++) {
+            if (!radios[i].checked) {
+                radios[i].disabled = true;
+            }
+        }
+    }
+
     function swipeLeft() {
+        disableButtons();
         animate(directions.forward);
     }
     function swipeRight() {
+        disableButtons();
         animate(directions.back);
+    }
+    
+    function radioHandler(e) {
+        var value = parseInt(e.target.value);
+
+        if (value) {
+            switch (value) {
+                case 2:
+                    rearrangeList(value);
+                    break;
+                case 3:
+                    rearrangeList(value);
+                    break;
+                case 4:
+                    rearrangeList(value);
+                    break;
+                case 5:
+                    rearrangeList(value);
+                    break;
+                case 6:
+                    rearrangeList(value);
+                    break;
+            }
+        }
     }
 
     function addListeners() {
@@ -107,4 +164,5 @@
     }
 
     addListeners();
+    form.addEventListener('click', radioHandler, false);
 })();

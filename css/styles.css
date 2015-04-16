@@ -23,6 +23,9 @@ ul {
   position: absolute;
   margin-left: 3%;
   margin-top: 3%; }
+  #wrapper form {
+    margin-left: 38%;
+    color: white; }
 
 .menu {
   color: white;
