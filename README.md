@@ -1,5 +1,5 @@
 # infinite-carousel
-  Mobile version of Infinite carousel/slider
+  Mobile version of Infinite-carousel
 
   This is dummy project which shows infinite slider (carousel) with animations, implemented only with pure css.
   There are no javascript animations. You can select number of tabs that you can move. 
