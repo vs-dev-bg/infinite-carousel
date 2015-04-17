@@ -7,6 +7,6 @@
   The logic is smart and you can have for example minimum of 2 tabs that should be animated, and unlimited maximum. 
   At this demo maximum tabs is 6, but the code lets you to add tabs as much as you want. 
 
-  This is the mobile version of the project. 
+  This is mobile version of the project. 
 
 Enjoy
